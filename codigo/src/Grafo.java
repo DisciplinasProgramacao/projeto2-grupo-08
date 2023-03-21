@@ -74,11 +74,11 @@ public class Grafo {
     }
 
     public Vertice removeVertice(int id){
-        return null;
+        return this.vertices.remove(id);
     }
 
     public Vertice existeVertice(int idVertice){
-        return null;
+        return this.vertices.find(idVertice);
     }
 
     /**
@@ -102,10 +102,28 @@ public class Grafo {
 
 
     public Aresta removeAresta(int origem, int destino){
+        Vertice saida = this.existeVertice(origem);
+
+        if(saida!=null){
+            return saida.removeAresta(destino);
+        }
+
         return null;
     }
 
     public Aresta existeAresta(int verticeA, int verticeB){
+        Vertice a = this.existeVertice(verticeA);
+        Vertice b = this.existeVertice(verticeB);
+
+        if (a != null && b !=null) {
+            Aresta a1 = a.existeAresta(verticeB);
+            Aresta a2 = b.existeAresta(verticeA);
+
+            if(a1 != null) return a1;
+            else if (a2 != null) return a2;
+            return null;
+        }
+
        return null;
     }
     
