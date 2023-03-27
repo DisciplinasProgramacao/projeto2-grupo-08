@@ -22,15 +22,32 @@
  * SOFTWARE.
  */
 
+// Quando for não direcionado adicionar duas arestas ou só uma ? Caso adicionarmos somente uma
+// precisaremos verificar se ele é ou não direcionado toda vez que formos trabalhar com as arestas
+
 /** 
  * Classe básica para um Grafo simples não direcionado.
  */
 public class Grafo {
     public final String nome;
     private ABB<Vertice> vertices;
+    private boolean direcionado = true;
 
     public static Grafo grafoCompleto(int ordem){
-        return null;
+
+        Grafo grafo = new Grafo("Grafo completo de ordem: " + ordem);
+        
+        for(int i = 0; i < ordem; i++) {
+            grafo.addVertice(i);
+        }
+
+        for(int i = 0; i < ordem; i++) {
+            for(int j = 0; j < ordem; j++) {
+                if (i != j) grafo.addAresta(i, j, 0);
+            }
+        }
+
+        return grafo;
     }
 
     /**
@@ -97,7 +114,6 @@ public class Grafo {
             adicionou = (saida.addAresta(destino, peso)&&chegada.addAresta(origem, peso));
         }
         return adicionou;
-
     }
 
 
@@ -105,6 +121,11 @@ public class Grafo {
         Vertice saida = this.existeVertice(origem);
 
         if(saida!=null){
+            if(!this.direcionado) {
+                Vertice entrada = this.existeVertice(destino);
+                entrada.removeAresta(origem);
+            }
+
             return saida.removeAresta(destino);
         }
 
@@ -129,7 +150,22 @@ public class Grafo {
     
     
     public boolean completo(){
-       return false;
+        Vertice v[] = new Vertice[ordem()]; 
+        v = this.vertices.allElements(v);
+
+        Aresta a = null;
+        
+        for(int i = 0; i < ordem(); i++) {
+            for(int j = 0; j < ordem(); j++) {
+                if (i != j) {
+                    a = v[i].existeAresta(j);
+
+                    if (a == null) return false;
+                } 
+            }
+        }
+
+       return (a != null);
     }
 
     public Grafo subGrafo(Lista<Integer> vertices){
