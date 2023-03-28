@@ -1,3 +1,4 @@
+package classes;
 /** 
  * MIT License
  *
@@ -43,7 +44,7 @@ public class Grafo {
 
         for(int i = 0; i < ordem; i++) {
             for(int j = 0; j < ordem; j++) {
-                if (i != j) grafo.addAresta(i, j, 0);
+                if (i != j) grafo.addAresta(i, j);
             }
         }
 
@@ -158,11 +159,13 @@ public class Grafo {
         v = this.vertices.allElements(v);
 
         Aresta a = null;
+
+        // percorrendo grau de cada vertice -> mais vantajoso
         
         for(int i = 0; i < ordem(); i++) {
             for(int j = 0; j < ordem(); j++) {
                 if (i != j) {
-                    a = v[i].existeAresta(j);
+                    a = v[i].existeAresta(v[j].getId());
 
                     if (a == null) return false;
                 } 
@@ -178,12 +181,14 @@ public class Grafo {
         return subgrafo;
     }
     
+    // retorna a quantidade de arestas + a quantidade de vertices (não direcionado como fazer?)
     public int tamanho(){
         return Integer.MIN_VALUE;
     }
-
+    
+    // retorna quantos vertices o grafo tem
     public int ordem(){
-        return Integer.MIN_VALUE;
+        return this.vertices.size();
     }
 
 }

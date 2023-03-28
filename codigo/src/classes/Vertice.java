@@ -1,3 +1,4 @@
+package classes;
 /** 
  * MIT License
  *
@@ -82,7 +83,7 @@ public class Vertice {
         return this.arestas.remove(destino);
     }
   
-  
+    // retornar quantas arestas saem do grafo
     public int grau(){
         return Integer.MIN_VALUE;
     }
