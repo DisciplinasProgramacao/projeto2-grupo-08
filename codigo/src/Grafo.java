@@ -111,7 +111,8 @@ public class Grafo {
         Vertice saida = this.existeVertice(origem);
         Vertice chegada = this.existeVertice(destino);
         if(saida!=null && chegada !=null){
-            adicionou = (saida.addAresta(destino, peso)&&chegada.addAresta(origem, peso));
+            adicionou = saida.addAresta(destino, peso);
+            if(!this.direcionado) chegada.addAresta(origem, peso);
         }
         return adicionou;
     }
