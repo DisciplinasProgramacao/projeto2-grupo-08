@@ -63,8 +63,14 @@ public class Vertice {
 
     
     public Aresta existeAresta(int destino){
-        return null;
+        Aresta a[] = new Aresta[this.arestas.size()]; 
+        a = this.arestas.allElements(a);
 
+        for(int i = 0; i < this.arestas.size(); i++) {
+            if(a[i].destino() == destino) return a[i];
+        }
+
+        return null;
     }
     
     /**

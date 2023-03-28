@@ -117,6 +117,9 @@ public class Grafo {
         return adicionou;
     }
 
+    public boolean addAresta(int origem, int destino){
+        return this.addAresta(origem, destino, 0);
+    }
 
     public Aresta removeAresta(int origem, int destino){
         Vertice saida = this.existeVertice(origem);
