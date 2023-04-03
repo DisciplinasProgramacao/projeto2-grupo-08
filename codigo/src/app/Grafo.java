@@ -1,4 +1,4 @@
-package classes;
+package app;
 /** 
  * MIT License
  *
@@ -32,7 +32,6 @@ package classes;
 public class Grafo {
     public final String nome;
     private ABB<Vertice> vertices;
-    private boolean direcionado = true;
 
     public static Grafo grafoCompleto(int ordem){
 
@@ -113,7 +112,6 @@ public class Grafo {
         Vertice chegada = this.existeVertice(destino);
         if(saida!=null && chegada !=null){
             adicionou = saida.addAresta(destino, peso);
-            if(!this.direcionado) chegada.addAresta(origem, peso);
         }
         return adicionou;
     }
@@ -126,11 +124,6 @@ public class Grafo {
         Vertice saida = this.existeVertice(origem);
 
         if(saida!=null){
-            if(!this.direcionado) {
-                Vertice entrada = this.existeVertice(destino);
-                entrada.removeAresta(origem);
-            }
-
             return saida.removeAresta(destino);
         }
 
@@ -172,7 +165,7 @@ public class Grafo {
             }
         }
 
-       return (a != null);
+       return (a == null ? false : true);
     }
 
     public Grafo subGrafo(Lista<Integer> vertices){
@@ -183,7 +176,16 @@ public class Grafo {
     
     // retorna a quantidade de arestas + a quantidade de vertices (não direcionado como fazer?)
     public int tamanho(){
-        return Integer.MIN_VALUE;
+        int qtdArestas = 0;
+
+        Vertice v[] = new Vertice[ordem()]; 
+        v = this.vertices.allElements(v);
+
+        for(int i = 0; i < ordem(); i++) {
+            qtdArestas += v[i].grau();
+        }
+
+        return (this.ordem() + qtdArestas);
     }
     
     // retorna quantos vertices o grafo tem

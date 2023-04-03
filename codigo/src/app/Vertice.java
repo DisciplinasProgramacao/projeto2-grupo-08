@@ -1,4 +1,4 @@
-package classes;
+package app;
 /** 
  * MIT License
  *
@@ -85,7 +85,7 @@ public class Vertice {
   
     // retornar quantas arestas saem do grafo
     public int grau(){
-        return Integer.MIN_VALUE;
+        return this.arestas.size();
     }
 
     /**

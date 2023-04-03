@@ -1,4 +1,4 @@
-package classes;
+package app;
 import java.util.LinkedList;
 /** 
  * MIT License

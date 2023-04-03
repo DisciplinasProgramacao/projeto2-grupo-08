@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import classes.Grafo;
-import classes.Vertice;
+import app.Grafo;
+import app.Vertice;
 
 public class GrafoTest {
     private Grafo g;
