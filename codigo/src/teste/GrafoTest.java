@@ -31,6 +31,16 @@ public class GrafoTest {
     }
 
     @Test
+    public void testTamanho() {
+        assertEquals(g.tamanho(), 3, 0.0001);
+        g.addVertice(3);
+        assertEquals(g.tamanho(), 4, 0.0001);
+        g.addAresta(1, 3);
+        g.addAresta(2, 1);
+        assertEquals(g.tamanho(), 6, 0.0001);
+    }
+
+    @Test
     public void testGrafoCompleto() {
         g.addVertice(3);
         
