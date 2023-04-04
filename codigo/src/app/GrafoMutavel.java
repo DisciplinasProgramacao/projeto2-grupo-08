@@ -6,12 +6,6 @@ public abstract class GrafoMutavel extends Grafo {
         super(nome);
     }
 
-    @Override
-    public Grafo grafoCompleto(int ordem) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'grafoCompleto'");
-    }
-
     /**
      * Adiciona um vértice com o id especificado. Ignora a ação e retorna false se já existir
      * um vértice com este id
