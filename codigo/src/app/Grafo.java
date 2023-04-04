@@ -29,26 +29,11 @@ package app;
 /** 
  * Classe básica para um Grafo simples não direcionado.
  */
-public class Grafo {
+public abstract class Grafo {
     public final String nome;
-    private ABB<Vertice> vertices;
+    protected ABB<Vertice> vertices;
 
-    public static Grafo grafoCompleto(int ordem){
-
-        Grafo grafo = new Grafo("Grafo completo de ordem: " + ordem);
-        
-        for(int i = 0; i < ordem; i++) {
-            grafo.addVertice(i);
-        }
-
-        for(int i = 0; i < ordem; i++) {
-            for(int j = 0; j < ordem; j++) {
-                if (i != j) grafo.addAresta(i, j);
-            }
-        }
-
-        return grafo;
-    }
+    public abstract Grafo grafoCompleto(int ordem);
 
     /**
      * Construtor. Cria um grafo vazio com um nome escolhido pelo usuário. Em caso de nome não informado 
@@ -69,15 +54,6 @@ public class Grafo {
     public String nome(){
         return this.nome;
     }
-
-
-    public void carregar(String nomeArquivo){
-
-    }
-
-    public void salvar(String nomeArquivo){
-        
-    }
     
     /**
      * Adiciona um vértice com o id especificado. Ignora a ação e retorna false se já existir
@@ -96,38 +72,6 @@ public class Grafo {
 
     public Vertice existeVertice(int idVertice){
         return this.vertices.find(idVertice);
-    }
-
-    /**
-     * Adiciona uma aresta entre dois vértices do grafo, caso os dois vértices existam no grafo. 
-     * Caso a aresta já exista, ou algum dos vértices não existir, o comando é ignorado e retorna FALSE.
-     * @param origem Vértice de origem
-     * @param destino Vértice de destino
-     * @param peso Peso da aresta
-     * @return TRUE se foi inserida, FALSE caso contrário
-     */
-    public boolean addAresta(int origem, int destino, int peso){
-        boolean adicionou = false;
-        Vertice saida = this.existeVertice(origem);
-        Vertice chegada = this.existeVertice(destino);
-        if(saida!=null && chegada !=null){
-            adicionou = saida.addAresta(destino, peso);
-        }
-        return adicionou;
-    }
-
-    public boolean addAresta(int origem, int destino){
-        return this.addAresta(origem, destino, 0);
-    }
-
-    public Aresta removeAresta(int origem, int destino){
-        Vertice saida = this.existeVertice(origem);
-
-        if(saida!=null){
-            return saida.removeAresta(destino);
-        }
-
-        return null;
     }
 
     public Aresta existeAresta(int verticeA, int verticeB){
@@ -168,11 +112,11 @@ public class Grafo {
        return (a == null ? false : true);
     }
 
-    public Grafo subGrafo(Lista<Integer> vertices){
-        Grafo subgrafo = new Grafo("Subgrafo de "+this.nome);
+    // public Grafo subGrafo(Lista<Integer> vertices){
+    //     Grafo subgrafo = new Grafo("Subgrafo de "+this.nome);
         
-        return subgrafo;
-    }
+    //     return subgrafo;
+    // }
     
     // retorna a quantidade de arestas + a quantidade de vertices (não direcionado como fazer?)
     public int tamanho(){
