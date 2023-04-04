@@ -12,7 +12,7 @@ public class App {
         
         //Lendo Arquivo
         //Arquivo deve conter um caractere declarando o tipo de grafo
-        //"C" Completo,"D" Direcionado,"N" Não Direcionado
+        //"D" Direcionado,"N" Não Direcionado
         //Ler primeira linha Char e atribuir a "tipoGrafo"
         //Padrão ler "xx;xx;xx"
         //Realizar split e alocar 
@@ -24,9 +24,6 @@ public class App {
         String nomeGrafo = MyIO.readString();       
             
             switch (tipoGrafo){
-                case C:
-                     
-                    break;
                 case D:
                     
                     break;
@@ -43,3 +40,4 @@ public class App {
             System.out.println("");
     }
 }
+
