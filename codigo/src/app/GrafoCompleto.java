@@ -1,13 +1,26 @@
 package app;
 
-public class GrafoCompleto extends Grafo{
-    /**
-     * Construtor. Cria um grafo vazio com um nome escolhido pelo usuário. Em caso de nome não informado
-     * (string vazia), recebe o nome genérico "Grafo"
-     *
-     * @param nome
-     */
-    public GrafoCompleto(String nome) {
-        super(nome);
+public class GrafoCompleto extends Grafo {
+
+    public GrafoCompleto(int ordem) {
+        super("Grafo completo de ordem: " + ordem);
+        
+        for(int i = 0; i < ordem; i++) {
+            addVertice(i);
+        }
+
+        for(int i = 0; i < ordem; i++) {
+            for(int j = 0; j < ordem; j++) {
+                if (i != j) {
+                    Vertice saida = existeVertice(i);
+                    Vertice chegada = existeVertice(j);
+
+                    if(saida != null && chegada != null){
+                        saida.addAresta(j);
+                    }
+                }
+            }
+        }
     }
+    
 }
