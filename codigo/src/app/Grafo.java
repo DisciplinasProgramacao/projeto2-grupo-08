@@ -96,31 +96,21 @@ public abstract class Grafo {
     public boolean completo(){
         Vertice v[] = new Vertice[ordem()]; 
         v = this.vertices.allElements(v);
-
-        Aresta a = null;
-
-        // percorrendo grau de cada vertice -> mais vantajoso
         
         for(int i = 0; i < ordem(); i++) {
-            for(int j = 0; j < ordem(); j++) {
-                if (i != j) {
-                    a = v[i].existeAresta(v[j].getId());
-
-                    if (a == null) return false;
-                } 
-            }
+            if(v[i].grau() != (ordem()-1)) return false;
         }
 
-       return (a == null ? false : true);
+       return true;
     }
 
-    // public Grafo subGrafo(Lista<Integer> vertices){
-    //     Grafo subgrafo = new Grafo("Subgrafo de "+this.nome);
+    public Grafo subGrafo(Lista<Integer> vertices){
+        GrafoDirecionado subgrafo = new GrafoDirecionado("Subgrafo de " + this.nome);
         
-    //     return subgrafo;
-    // }
+        return subgrafo;
+    }
     
-    // retorna a quantidade de arestas + a quantidade de vertices (não direcionado como fazer?)
+    //retorna a quantidade de arestas + a quantidade de vertices (não direcionado como fazer?)
     public int tamanho(){
         int qtdArestas = 0;
 
