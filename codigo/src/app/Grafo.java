@@ -104,10 +104,37 @@ public abstract class Grafo {
        return true;
     }
 
+    
+    //Percorrer a lista de inteiros e criar os vertices em um grafo novo
+    //Percorrer a lista de inteiros de novo e para cada id:
+    //	para cada id localizar o vertice no grafo original
+    //	para cada aresta deste grafo verficar se o vizinho está no grafo novo:
+    //		se estive, criar aresta no grafo novo
     public Grafo subGrafo(Lista<Integer> vertices){
-        GrafoDirecionado subgrafo = new GrafoDirecionado("Subgrafo de " + this.nome);
-        
-        return subgrafo;
+    	GrafoDirecionado subgrafo = new GrafoDirecionado("Subgrafo de " + this.nome);
+
+    	Integer subVertices[] = new Integer[vertices.size()];
+    	subVertices = vertices.allElements(subVertices);
+
+    	Vertice verticesGrafo[] = new Vertice[ordem()];
+    	verticesGrafo = this.vertices.allElements(verticesGrafo);
+
+    	// Percorrer lista de inteiros e criar veritces -> percorrer lista e p cada id (localizar o vertice e mapear as arestas, para cada, verificar se o vizinha esta dentro da lista de inteiros)
+    	for(int i = 0; i < vertices.size(); i++) {
+    		subgrafo.addVertice(subVertices[i]);
+    	}
+
+    	for(int i = 0; i < vertices.size(); i++) {
+    		Vertice v = this.vertices.find(subVertices[i]);
+    	for(int j = 0; j < vertices.size(); j++) {
+    	if(v.existeAresta(subVertices[j]) != null) {
+    	subgrafo.addAresta(subVertices[i], subVertices[j]);
+    		}
+    		}
+    	}
+
+
+    	return subgrafo;
     }
     
     //retorna a quantidade de arestas + a quantidade de vertices (não direcionado como fazer?)
@@ -130,3 +157,4 @@ public abstract class Grafo {
     }
 
 }
+
