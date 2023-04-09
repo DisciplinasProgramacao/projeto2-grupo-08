@@ -33,8 +33,9 @@ public class GrafoDirecionado extends GrafoMutavel{
     @Override
     public Aresta removeAresta(int origem, int destino){
         Vertice saida = this.existeVertice(origem);
+        Vertice entrada = this.existeVertice(destino);
 
-        if(saida!=null){
+        if(saida!=null && entrada != null){
             return saida.removeAresta(destino);
         }
 

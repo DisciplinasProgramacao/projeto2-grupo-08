@@ -81,12 +81,7 @@ public abstract class Grafo {
         Vertice b = this.existeVertice(verticeB);
 
         if (a != null && b !=null) {
-            Aresta a1 = a.existeAresta(verticeB);
-            Aresta a2 = b.existeAresta(verticeA);
-
-            if(a1 != null) return a1;
-            else if (a2 != null) return a2;
-            return null;
+            return a.existeAresta(verticeB);
         }
 
        return null;
@@ -126,13 +121,12 @@ public abstract class Grafo {
 
     	for(int i = 0; i < vertices.size(); i++) {
     		Vertice v = this.vertices.find(subVertices[i]);
-    	for(int j = 0; j < vertices.size(); j++) {
-    	if(v.existeAresta(subVertices[j]) != null) {
-    	subgrafo.addAresta(subVertices[i], subVertices[j]);
-    		}
+            for(int j = 0; j < vertices.size(); j++) {
+                if(v.existeAresta(subVertices[j]) != null) {
+                    subgrafo.addAresta(subVertices[i], subVertices[j]);
+                }
     		}
     	}
-
 
     	return subgrafo;
     }
