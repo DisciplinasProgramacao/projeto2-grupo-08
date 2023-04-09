@@ -49,7 +49,7 @@ public class Vertice {
     }
     
     public boolean addAresta(int destino){
-        return false;
+        return addAresta(destino, 0);
     }
 
     /**
