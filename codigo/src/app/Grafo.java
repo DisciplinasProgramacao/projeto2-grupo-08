@@ -23,6 +23,9 @@ package app;
  * SOFTWARE.
  */
 
+import java.util.ArrayDeque;
+import java.util.Queue;
+
 // Quando for não direcionado adicionar duas arestas ou só uma ? Caso adicionarmos somente uma
 // precisaremos verificar se ele é ou não direcionado toda vez que formos trabalhar com as arestas
 
@@ -148,6 +151,56 @@ public abstract class Grafo {
     // retorna quantos vertices o grafo tem
     public int ordem(){
         return this.vertices.size();
+    }
+
+    public void BFS() {
+        int t = 0;
+        Queue<Vertice> fila = new ArrayDeque<Vertice>();
+
+        Vertice vertices[] = new Vertice[ordem()]; 
+        vertices = this.vertices.allElements(vertices);
+
+        Integer td[] = new Integer[ordem()];
+        Integer tt[] = new Integer[ordem()];
+        Integer pai[] = new Integer[ordem()];
+
+        for(int i = 0; i < ordem(); i++) {
+            td[i] = 0;
+            tt[i] = 0;
+            pai[i] = 0;
+
+            while(td[i] == 0) {
+                t = t + 1;
+                td[i] = t;
+                fila.add(vertices[i]);
+                while(!fila.isEmpty()) {
+                    Vertice v = fila.remove();
+
+                    for(int j = 0; j < ordem(); j++) {
+                        Aresta a = existeAresta(v.getId(), j);
+                        
+                        if(a != null) {
+                            Vertice vizinho = this.existeVertice(a.destino());
+
+                            if(td[j] == 0) {
+                                a.visitar();
+                                vizinho.visitar();
+                                pai[j] = v.getId();
+                                t = t + 1;
+                                td[j] = t;
+                                fila.add(vizinho);
+                            }
+                            else if(tt[j] == 0 && pai[j] != vizinho.getId()) {
+                                a.visitar();
+                            }
+                        }
+                    }
+        
+                    t = t + 1;
+                    tt[i] = t;
+                }
+            }
+        }
     }
 
 }
