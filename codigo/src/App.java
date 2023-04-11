@@ -1,26 +1,24 @@
- import app.*;
+ import java.util.List;
 
- public class App {
+import app.*;
 
-//     public static void metodoLeitura(){
-//
-//     }
+public class App {
 
-     public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
 
-         //Expecificando o nome do arquivo para leitura
-         System.out.print("Insira o nome do arquivo>> ");
-         String nomeArquivo = MyIO.readString();
+        //Expecificando o nome do arquivo para leitura
+        System.out.print("Insira o nome do arquivo>> ");
+        String nomeArquivo = MyIO.readString();
 
 
-         //Lendo Arquivo
-         ArquivoTextoLeitura file = new ArquivoTextoLeitura(nomeArquivo);
+        //Lendo Arquivo
+        ArquivoTextoLeitura file = new ArquivoTextoLeitura(nomeArquivo);
 
-         String tipoGrafo = file.lerArquivo();
+        String tipoGrafo = file.ler();
 
-         String entrada;
+        String entrada;
 
-         //expecificações arquivo
+        //expecificações arquivo
 //        - primeira linha deve conter char que declara o tipo do grafo
 //        - segunda linha pra frente, tipo de leitura "x;y;z"
 //        - x → origem / y → destino / z → peso
@@ -29,79 +27,94 @@
 //        - caso não existam, criar vértices com o respectivo id e criar aresta
 //        - ao final um flag "FIM" interrompendo leitura
 
-         //Definindo o nome do grafo
+        //Definindo o nome do grafo
 
 
-         System.out.print("Insira o nome do Grafo>> ");
-         String nomeGrafo = MyIO.readString();
+        System.out.print("Insira o nome do Grafo>> ");
+        String nomeGrafo = MyIO.readString();
+        
+        GrafoMutavel novoGrafo1 = null;
 
-         if(tipoGrafo == "D") {
-             GrafoDirecionado novoGrafo = new GrafoDirecionado(nomeGrafo);
-             while (file.lerArquivo() != "FIM") {
-                 entrada = MyIO.readLine();
+        if(tipoGrafo == "D") {
+            GrafoDirecionado novoGrafo = new GrafoDirecionado(nomeGrafo);
+            while (file.ler() != "FIM") {
+                entrada = MyIO.readLine();
 
-                 int origem = Integer.parseInt(entrada.split(";")[0]);
-                 if (novoGrafo.existeVertice(origem) == null) {
-                     novoGrafo.addVertice(origem);
-                 }
-                 int destino = Integer.parseInt(entrada.split(";")[1]);
-                 if (novoGrafo.existeVertice(destino) == null) {
-                     novoGrafo.addVertice(origem);
-                 }
-                 int peso = Integer.parseInt(entrada.split(";")[2]);
+                int origem = Integer.parseInt(entrada.split(";")[0]);
+                if (novoGrafo.existeVertice(origem) == null) {
+                    novoGrafo.addVertice(origem);
+                }
+                int destino = Integer.parseInt(entrada.split(";")[1]);
+                if (novoGrafo.existeVertice(destino) == null) {
+                    novoGrafo.addVertice(origem);
+                }
+                int peso = Integer.parseInt(entrada.split(";")[2]);
 
-                 novoGrafo.addAresta(origem, destino, peso);
-             }
-         } else if (tipoGrafo == "N"){
-             GrafoNaoDirecionado novoGrafo = new GrafoNaoDirecionado(nomeGrafo);
-             while(file.lerArquivo() != "FIM"){
-                 entrada = MyIO.readLine();
+                novoGrafo.addAresta(origem, destino, peso);
+                
+                entrada = file.ler();
+            }
+            
+            novoGrafo1 = novoGrafo;
+        } else if (tipoGrafo == "N"){
+            GrafoNaoDirecionado novoGrafo = new GrafoNaoDirecionado(nomeGrafo);
+            while(file.ler() != "FIM"){
+                entrada = MyIO.readLine();
 
-                 int origem = Integer.parseInt(entrada.split(";")[0]);
-                 if (novoGrafo.existeVertice(origem) == null){
-                     novoGrafo.addVertice(origem);
-                 }
-                 int destino = Integer.parseInt(entrada.split(";")[1]);
-                 if (novoGrafo.existeVertice(destino) == null){
-                     novoGrafo.addVertice(origem);
-                 }
-                 int peso = Integer.parseInt(entrada.split(";")[2]);
+                int origem = Integer.parseInt(entrada.split(";")[0]);
+                if (novoGrafo.existeVertice(origem) == null){
+                    novoGrafo.addVertice(origem);
+                }
+                int destino = Integer.parseInt(entrada.split(";")[1]);
+                if (novoGrafo.existeVertice(destino) == null){
+                    novoGrafo.addVertice(origem);
+                }
+                int peso = Integer.parseInt(entrada.split(";")[2]);
 
-                 novoGrafo.addAresta(origem,destino,peso);
-             }
-         }
+                novoGrafo.addAresta(origem,destino,peso);
+                
+                entrada = file.ler();
+            }
+            
+            novoGrafo1 = novoGrafo;
+        }
 
-         System.out.println("=-=-=-=-=-=-=-=-=-=-=");
-         System.out.println("[1]Imprimir subgrafo");
-         System.out.println("[2]Busca em profundidade");
-         System.out.println("[0]Finalizar programa");
-         System.out.println("=-=-=-=-=-=-=-=-=-=-=");
-         System.out.print(">> ");
+        file.fecharArquivo();
 
-         int op = MyIO.readInt();
+        System.out.println("=-=-=-=-=-=-=-=-=-=-=");
+        System.out.println("[1]Imprimir subgrafo");
+        System.out.println("[2]Busca em profundidade");
+        System.out.println("[0]Finalizar programa");
+        System.out.println("=-=-=-=-=-=-=-=-=-=-=");
+        System.out.print(">> ");
 
-         do {
-             switch (op) {
-                 case 1:
-                        if (tipoGrafo == "D"){
-                            //novoGrafo.subgrafo();
-                        }
-                        else {
-                            //novoGrafo.buscaEmProfundidade();
-                        }
-                     break;
-                 case 2:
+        int op = MyIO.readInt();
 
-                     break;
-                 case 0:
-                     System.out.println("Finalizando programa.");
-                     break;
-                 default:
-                     System.out.println("Digite uma opção válida.");
-             }
-         } while (op != 0);
+        do {
+            switch (op) {
+                case 1:
+                    int op2 = 1;
+                    Lista<Integer> vert = new Lista<Integer>();
 
-         //Escrever grafo em arquivo .txt
+                    while (op2 != 0){
+                        System.out.print("Escreva quais vertices deseja (Digite 0 para encerrar)>> ");
+                        op2 = MyIO.readInt();
+                        vert.add(op2);
+                    }
+                    
+                    novoGrafo1.subGrafo(vert);
+                    break;
+                case 2:
+                    novoGrafo1.BFS();
+                    break;
+                case 0:
+                    System.out.println("Finalizando programa.");
+                    break;
+                default:
+                    System.out.println("Digite uma opção válida.");
+            }
+        } while (op != 0);
 
-     }
- }
+        novoGrafo1.salvar("arqDestino");
+    }
+}
