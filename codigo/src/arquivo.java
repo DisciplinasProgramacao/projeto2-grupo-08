@@ -1,58 +1,66 @@
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 
 public class ArquivoTextoLeitura {
 
-	private BufferedReader entrada;
-	
-	ArquivoTextoLeitura(String nomeArquivo) {	
-		
-		try {
-			entrada = new BufferedReader(new FileReader(nomeArquivo)); //pede o nome do arquivo para abrir
-		}
-		catch (FileNotFoundException excecao) {
-			System.out.println("Arquivo nao encontrado"); //se o nome do arquivo estiver errado, ou não existir, mostra o erro
-		}
-	}
-	
-	public void fecharArquivo() {
-		
-		try {
-			entrada.close();
-		}
-		catch (IOException excecao) {
-			System.out.println("Erro no fechamento do arquivo de leitura: " + excecao);	//erro para fechar a leitura do arquivo
-		}
-	}
-	
-	
-	@SuppressWarnings("finally")
-	public String lerArquivo() {
+    private BufferedReader entrada;
+    private Grafo grafo;
 
-		String textoEntrada = null;
+    public ArquivoTextoLeitura(String nomeArquivo) {
+        try {
+            entrada = new BufferedReader(new FileReader(nomeArquivo));
+        } catch (FileNotFoundException excecao) {
+            System.out.println("Arquivo não encontrado");
+        }
+    }
 
-		try {
-			textoEntrada = entrada.readLine();
-			if (textoEntrada.equals("  ")) { // verificando se a última linha foi atingida
-				textoEntrada = null;
-				return textoEntrada;
-			}
-		} catch (EOFException excecao) { // Excecao de final de arquivo.
-			textoEntrada = null;
-		} catch (IOException excecao) {
-			System.out.println("Erro de leitura: " + excecao);
-			textoEntrada = null;
-		} finally {
-			return textoEntrada;
-		}
-	}
+    public Grafo lerGrafo() throws IOException {
+        grafo = new Grafo();
+
+        String tipoGrafo = entrada.readLine();
+        if (tipoGrafo.equals("D")) {
+            grafo.setTipoGrafo(TipoGrafo.DIGRAFO);
+        } else if (tipoGrafo.equals("G")) {
+            grafo.setTipoGrafo(TipoGrafo.GRAFO);
+        } else {
+            System.out.println("Tipo de grafo inválido");
+            return null;
+        }
+
+        String linha;
+        while ((linha = entrada.readLine()) != null) {
+            if (linha.equals("FIM")) {
+                break;
+            }
+            String[] valores = linha.split(";");
+
+            String origem = valores[0];
+            String destino = valores[1];
+            String peso = valores[2];
+
+            if (!grafo.verticeExiste(origem)) {
+                grafo.criarVertice(origem);
+            }
+            if (!grafo.verticeExiste(destino)) {
+                grafo.criarVertice(destino);
+            }
+
+            grafo.criarAresta(origem, destino, Double.parseDouble(peso));
+        }
+
+        return grafo;
+    }
+
+    public void fecharArquivo() {
+        try {
+            entrada.close();
+        } catch (IOException excecao) {
+            System.out.println("Erro no fechamento do arquivo de leitura: " + excecao);
+        }
+    }
 }
-
-
 public class ArquivoTextoEscrita {
 
     private BufferedWriter saida;
@@ -84,35 +92,4 @@ public class ArquivoTextoEscrita {
             System.out.println("Erro de escrita: " + excecao);
         }
     }
-
-/*
-main seria algo do tipo:
-
-
-public static void main(String[] args) {
-    String nomeArquivo = "meu_grafo.txt";
-
-    // Lê o grafo do arquivo
-    ArquivoTextoLeitura leitura = new ArquivoTextoLeitura(nomeArquivo);
-    String linha = leitura.lerArquivo();
-    while (linha != null && !linha.trim().isEmpty()) {
-        // Processa cada linha do grafo
-        // ...
-
-        linha = leitura.lerArquivo();
-    }
-    leitura.fecharArquivo();
-
-    // Faz algumas modificações no grafo
-    // ...
-
-    // Sobrescreve o arquivo original com as modificações
-    ArquivoTextoEscrita escrita = new ArquivoTextoEscrita(nomeArquivo);
-    escrita.escreverArquivo("nova linha 1\n");
-    escrita.escreverArquivo("nova linha 2\n");
-    escrita.fecharArquivo();
 }
- * 
- * 
- * 
- */
