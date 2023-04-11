@@ -58,7 +58,8 @@ public abstract class GrafoMutavel extends Grafo {
     }
 
     public void salvar(String nomeArquivo){
-        
+        ArquivoTextoEscrita arqEscrita = new ArquivoTextoEscrita(nomeArquivo);
+
     }
     
 }
