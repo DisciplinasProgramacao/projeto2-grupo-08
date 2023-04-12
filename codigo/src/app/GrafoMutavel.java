@@ -12,11 +12,13 @@ public abstract class GrafoMutavel extends Grafo {
      * @param id O identificador do vértice a ser criado/adicionado
      * @return TRUE se houve a inclusão do vértice, FALSE se já existia vértice com este id
      */
+    @Override
     public boolean addVertice(int id){
         Vertice novo = new Vertice(id);
         return this.vertices.add(id, novo);
     }
 
+    @Override
     public Vertice removeVertice(int id){
         return this.vertices.remove(id);
     }
@@ -59,7 +61,14 @@ public abstract class GrafoMutavel extends Grafo {
 
     public void salvar(String nomeArquivo){
         ArquivoTextoEscrita arqEscrita = new ArquivoTextoEscrita(nomeArquivo);
+        Vertice v[] = new Vertice[ordem()];
+        v = this.vertices.allElements(v);
 
+        int cont = 0;
+        do{
+        //arqEscrita.escrever(v[cont].getId()+ ";"+ v[cont].+";"+ +";");
+        cont++;
+        }while(cont < ordem());
     }
     
 }

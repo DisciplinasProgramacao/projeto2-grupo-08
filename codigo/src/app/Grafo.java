@@ -71,13 +71,16 @@ public abstract class Grafo {
         return this.vertices.add(id, novo);
     }
 
+
     public Vertice removeVertice(int id){
         return this.vertices.remove(id);
     }
 
+
     public Vertice existeVertice(int idVertice){
         return this.vertices.find(idVertice);
     }
+
 
     public Aresta existeAresta(int verticeA, int verticeB){
         Vertice a = this.existeVertice(verticeA);
@@ -102,12 +105,7 @@ public abstract class Grafo {
        return true;
     }
 
-    
-    //Percorrer a lista de inteiros e criar os vertices em um grafo novo
-    //Percorrer a lista de inteiros de novo e para cada id:
-    //	para cada id localizar o vertice no grafo original
-    //	para cada aresta deste grafo verficar se o vizinho está no grafo novo:
-    //		se estive, criar aresta no grafo novo
+
     public Grafo subGrafo(Lista<Integer> vertices){
     	GrafoDirecionado subgrafo = new GrafoDirecionado("Subgrafo de " + this.nome);
 
@@ -153,6 +151,7 @@ public abstract class Grafo {
         return this.vertices.size();
     }
 
+    // busca por profundidade
     public void BFS() {
         int t = 0;
         Queue<Vertice> fila = new ArrayDeque<Vertice>();

@@ -27,9 +27,8 @@ public class App {
 //        - caso não existam, criar vértices com o respectivo id e criar aresta
 //        - ao final um flag "FIM" interrompendo leitura
 
+
         //Definindo o nome do grafo
-
-
         System.out.print("Insira o nome do Grafo>> ");
         String nomeGrafo = MyIO.readString();
         
@@ -37,8 +36,9 @@ public class App {
 
         if(tipoGrafo == "D") {
             GrafoDirecionado novoGrafo = new GrafoDirecionado(nomeGrafo);
+            entrada = file.ler();
+
             while (file.ler() != "FIM") {
-                entrada = MyIO.readLine();
 
                 int origem = Integer.parseInt(entrada.split(";")[0]);
                 if (novoGrafo.existeVertice(origem) == null) {
@@ -58,8 +58,9 @@ public class App {
             novoGrafo1 = novoGrafo;
         } else if (tipoGrafo == "N"){
             GrafoNaoDirecionado novoGrafo = new GrafoNaoDirecionado(nomeGrafo);
+            entrada = file.ler();
+
             while(file.ler() != "FIM"){
-                entrada = MyIO.readLine();
 
                 int origem = Integer.parseInt(entrada.split(";")[0]);
                 if (novoGrafo.existeVertice(origem) == null){

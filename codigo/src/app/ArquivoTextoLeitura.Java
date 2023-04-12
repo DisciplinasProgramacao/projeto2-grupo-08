@@ -6,7 +6,7 @@ public class ArquivoTextoLeitura {
 
 	private BufferedReader entrada;
 
-	ArquivoTextoLeitura(String nomeArquivo) {
+	public ArquivoTextoLeitura(String nomeArquivo) {
 
 		try {
 			entrada = new BufferedReader(new FileReader(nomeArquivo));
