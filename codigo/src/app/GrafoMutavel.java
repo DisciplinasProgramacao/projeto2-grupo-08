@@ -61,14 +61,25 @@ public abstract class GrafoMutavel extends Grafo {
 
     public void salvar(String nomeArquivo){
         ArquivoTextoEscrita arqEscrita = new ArquivoTextoEscrita(nomeArquivo);
-        Vertice v[] = new Vertice[ordem()];
-        v = this.vertices.allElements(v);
 
-        int cont = 0;
-        do{
-        //arqEscrita.escrever(v[cont].getId()+ ";"+ v[cont].+";"+ +";");
-        cont++;
-        }while(cont < ordem());
+        Vertice verticesGrafo[] = new Vertice[ordem()];
+        verticesGrafo = this.vertices.allElements(verticesGrafo);
+        int origem = 0;
+        int destino = 0;
+        int peso = 0;
+
+        for(int i = 0; i < ordem(); i++){
+            origem = verticesGrafo[i].getId();
+            for(int j = 0; j < ordem(); j++) {
+                Aresta a = verticesGrafo[i].existeAresta(verticesGrafo[j].getId());
+                if(a != null) {
+                    destino = verticesGrafo[j].getId();
+                    peso = a.peso();
+                    arqEscrita.escrever(origem+ ";"+ destino +";"+ peso +";");
+                }
+            }
+        }
+        arqEscrita.fecharArquivo();
     }
     
 }

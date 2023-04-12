@@ -116,6 +116,7 @@ public class App {
             }
         } while (op != 0);
 
-        novoGrafo1.salvar("arqDestino");
+        novoGrafo1.salvar("arqParaEscrita");
+        System.out.println("Grafo Salvo.");
     }
 }
